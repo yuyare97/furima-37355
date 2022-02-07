@@ -1,24 +1,73 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                | Type   | Options                   |
+| --------------------- | ------ | --------------------------|
+| nickname              | string | null: false               |
+| email                 | string | null: false, unique: true |
+| password              | string | null: false               |
+| password_confirmation | string | null: false               |
+| last_name             | string | null: false               |
+| first_name            | string | null: false               |
+| last_name_kana        | string | null: false               |
+| first_name_kana       | string | null: false               |
+| birthday              | date   | null: false               |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_one :buyers
+- has_one :cards
 
-* Configuration
 
-* Database creation
+## items テーブル
 
-* Database initialization
+| Column                | Type        | Options                        |
+| --------------------- | ----------- | -------------------------------|
+| image                 | string      | null: false                    |
+| name                  | string      | null: false                    |
+| description           | text        | null: false                    |
+| category              | string      | null: false                    |
+| condition             | string      | null: false                    |
+| burden                | string      | null: false                    |
+| prefecture            | string      | null: false                    |
+| days                  | string      | null: false                    |
+| price                 | integer     | null: false                    |
+| user                  | references  | null: false, foreign_key: ture |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :users
 
-* Deployment instructions
 
-* ...
+
+
+## buyers テーブル
+
+| Column                | Type       | Options                        |
+| --------------------- | ---------- | -------------------------------|
+| postcode              | string     | null: false                    |
+| prefecture            | string     | null: false                    |
+| city                  | string     | null: false                    |
+| address               | string     | null: false                    |
+| apartment_name        | string     |                                |
+| phone_number          | string     | null: false                    |
+| user                  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :users
+
+
+
+
+## cards テーブル
+
+| Column                | Type       | Options                        |
+| --------------------- | ---------- | -------------------------------|
+| user                  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :users
