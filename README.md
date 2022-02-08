@@ -6,8 +6,7 @@
 | --------------------- | ------ | --------------------------|
 | nickname              | string | null: false               |
 | email                 | string | null: false, unique: true |
-| password              | string | null: false               |
-| password_confirmation | string | null: false               |
+| encrypted_password    | string | null: false               |
 | last_name             | string | null: false               |
 | first_name            | string | null: false               |
 | last_name_kana        | string | null: false               |
@@ -17,29 +16,28 @@
 ### Association
 
 - has_many :items
-- has_one :buyers
-- has_one :cards
+- has_many :orders
+- has_one :card
 
 
 ## items テーブル
 
 | Column                | Type        | Options                        |
 | --------------------- | ----------- | -------------------------------|
-| image                 | string      | null: false                    |
 | name                  | string      | null: false                    |
 | description           | text        | null: false                    |
-| category              | string      | null: false                    |
-| condition             | string      | null: false                    |
-| burden                | string      | null: false                    |
-| prefecture            | string      | null: false                    |
-| days                  | string      | null: false                    |
+| category_id           | integer     | null: false                    |
+| condition_id          | integer     | null: false                    |
+| burden_id             | integer     | null: false                    |
+| prefecture_id         | integer     | null: false                    |
+| scheduled_day         | string      | null: false                    |
 | price                 | integer     | null: false                    |
 | user                  | references  | null: false, foreign_key: ture |
 
 ### Association
 
-- belongs_to :users
-
+- belongs_to :user
+- has_one :order
 
 
 
@@ -48,7 +46,7 @@
 | Column                | Type       | Options                        |
 | --------------------- | ---------- | -------------------------------|
 | postcode              | string     | null: false                    |
-| prefecture            | string     | null: false                    |
+| prefecture_id         | integer    | null: false                    |
 | city                  | string     | null: false                    |
 | address               | string     | null: false                    |
 | apartment_name        | string     |                                |
@@ -57,7 +55,8 @@
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
+- belongs_to :order
 
 
 
@@ -70,4 +69,21 @@
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
+
+
+
+## orders テーブル
+
+| Column                | Type       | Options                        |
+| --------------------- | ---------- | -------------------------------|
+| user                  | references | null: false, foreign_key: true |
+| item                  | references | null: false, foreign_key: true |
+| buyer                 | references | null: false, foreign_key: true |
+
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :buyer
