@@ -17,7 +17,6 @@
 
 - has_many :items
 - has_many :orders
-- has_one :card
 
 
 ## items テーブル
@@ -51,24 +50,11 @@
 | address               | string     | null: false                    |
 | apartment_name        | string     |                                |
 | phone_number          | string     | null: false                    |
+| order                 | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
 - belongs_to :order
-
-
-
-
-## cards テーブル
-
-| Column                | Type       | Options                        |
-| --------------------- | ---------- | -------------------------------|
-| user                  | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
 
 
 
