@@ -30,7 +30,7 @@
 | condition_id          | integer     | null: false                    |
 | burden_id             | integer     | null: false                    |
 | prefecture_id         | integer     | null: false                    |
-| scheduled_day         | string      | null: false                    |
+| scheduled_day         | integer     | null: false                    |
 | price                 | integer     | null: false                    |
 | user                  | references  | null: false, foreign_key: ture |
 
@@ -51,7 +51,6 @@
 | address               | string     | null: false                    |
 | apartment_name        | string     |                                |
 | phone_number          | string     | null: false                    |
-| user                  | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -79,8 +78,6 @@
 | --------------------- | ---------- | -------------------------------|
 | user                  | references | null: false, foreign_key: true |
 | item                  | references | null: false, foreign_key: true |
-| buyer                 | references | null: false, foreign_key: true |
-
 
 ### Association
 
