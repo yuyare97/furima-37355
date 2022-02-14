@@ -47,6 +47,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
+      it ':priceが9999999以上だと登録できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
+      end
       it ':category_idが「---」だと登録できない' do
         @item.category_id = '0'
         @item.valid?
