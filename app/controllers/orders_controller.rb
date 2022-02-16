@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
+
   def index
-    @order_buyer = OrderBuyer.all
+    @order = OrderBuyer.new
   end
 
   def create
