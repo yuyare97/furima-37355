@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: :index
   before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index]
 
@@ -30,10 +31,9 @@ class OrdersController < ApplicationController
 
   def move_to_index
     redirect_to new_user_session_path unless user_signed_in?
-    
-    if current_user.id == @item.user_id
+    if current_user == @item.user
       redirect_to root_path
-    elsif Order.exists?(item_id: @item.id)
+    elsif Order.exists?
       redirect_to root_path
     end
   end
