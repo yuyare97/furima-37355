@@ -1,6 +1,6 @@
 class OrderBuyer
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :address, :apartment_name, :phone_number
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :address, :apartment_name, :phone_number, :token
 
   validate :user_id
   validate :item_id
@@ -9,6 +9,7 @@ class OrderBuyer
   validate :city
   validate :address
   validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "can't be blank"}
+  validate :token
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
