@@ -133,10 +133,10 @@
             <%= image_tag item.image.variant(resize: '500x500'), class: "item-img" if item.image.attached? %>
 
             <%# 商品が売れていればsold outを表示しましょう %>
-            <% if @item.present? %>
-            <div class='sold-out'>
+            <% if Order.exists?(item_id: item.id) %>
+              <div class='sold-out'>
               <span>Sold Out!!</span>
-            </div>
+              </div>
             <% end %>
             <%# //商品が売れていればsold outを表示しましょう %>
 
