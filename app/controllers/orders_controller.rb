@@ -30,10 +30,9 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    redirect_to new_user_session_path unless user_signed_in?
     if current_user == @item.user
       redirect_to root_path
-    elsif Order.exists?
+    elsif @item.order.present?
       redirect_to root_path
     end
   end
@@ -46,5 +45,5 @@ class OrdersController < ApplicationController
       currency: 'jpy'                 
     )
   end
-
+  
 end
