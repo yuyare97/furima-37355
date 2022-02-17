@@ -1,3 +1,3 @@
 class Buyer < ApplicationRecord
-  has_one :order
+  belongs_to :order
 end

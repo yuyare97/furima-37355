@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe OrderBuyer, type: :model do
   before do
-    @order_buyer = FactoryBot.build(:order_buyer)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_buyer = FactoryBot.build(:order_buyer, user_id: user.id, item_id: item.id)
+    sleep 0.1
   end
 
   describe 'OrderBuyer登録' do
@@ -47,10 +50,35 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが10桁か11桁でないと登録できない' do
-        @order_buyer.phone_number = nil
+      it 'phone_numberが9桁以下では登録できない' do
+        @order_buyer.phone_number = '000111222'
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'phone_numberが12桁以上では登録できない' do
+        @order_buyer.phone_number = '000111222333'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it '電話番号に半角数字以外が含まれている場合は購入できない' do
+        @order_buyer.phone_number = '00011122233３'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'userが紐付いていなければ購入できない' do
+        @order_buyer.user_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include()
+      end
+      it 'itemが紐付いていなければ購入できない' do
+        @order_buyer.item_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include()
+      end
+      it 'tokenが空では購入できない' do
+        @order_buyer.token = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include()
       end
     end
   end
